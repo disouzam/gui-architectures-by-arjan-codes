@@ -1,9 +1,10 @@
 """
-    Entry point module for MVC application
+Entry point module for MVC application
 """
 
 from controller import Controller
 from model import Model
+
 
 def main() -> None:
     """
@@ -13,6 +14,7 @@ def main() -> None:
     # view = TodoList(model)
     controller = Controller(model)
     controller.run()
+
 
 if __name__ == "__main__":
     main()

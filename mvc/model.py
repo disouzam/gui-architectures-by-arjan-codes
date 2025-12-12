@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class Model:
     def __init__(self) -> None:
         self.connection = sqlite3.connect("tasks.db")
@@ -19,4 +20,3 @@ class Model:
         for row in self.cursor.execute("select title from tasks"):
             tasks.append(row[0])
         return tasks
-

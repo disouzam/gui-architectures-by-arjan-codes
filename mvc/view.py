@@ -49,7 +49,7 @@ class TodoList(tk.Tk):
     @property
     def selected_task(self):
         return self.task_list.get(self.task_list.curselection())
-    
+
     def on_select_task(self, event=None):
         self.del_task_button.config(state=tk.NORMAL)
 
