@@ -2,7 +2,7 @@
 Entry point module for MVC application
 """
 
-from controller import Controller
+from presenter import Presenter
 from model import Model
 from view import TodoList
 
@@ -13,7 +13,7 @@ def main() -> None:
     """
     model = Model()
     view = TodoList(model)
-    controller = Controller(model, view)
+    controller = Presenter(model, view)
     controller.run()
 
 

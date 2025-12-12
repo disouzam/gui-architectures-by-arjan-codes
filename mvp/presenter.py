@@ -2,7 +2,7 @@ from model import Model
 from view import TodoList
 
 
-class Controller:
+class Presenter:
     def __init__(self, model: Model, view: TodoList) -> None:
         self.model = model
         self.view = view
