@@ -1,5 +1,5 @@
 import tkinter as tk
-from typing import Any, Callable, Protocol
+from typing import Protocol
 
 TITLE = "To Do List"
 DELETE_BTN_TXT = "Delete"

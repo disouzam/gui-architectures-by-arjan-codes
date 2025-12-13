@@ -2,6 +2,7 @@ from __future__ import annotations
 from model import Model
 from typing import Protocol
 
+
 class View(Protocol):
     def create_ui(self, presenter: Presenter) -> None: ...
 
