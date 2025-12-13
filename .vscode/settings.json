@@ -1,0 +1,4 @@
+{
+    "python.analysis.extraPaths": ["{workspaceFolder}/.venv/Libs/**"],
+    "python.analysis.autoSearchPaths": true
+}
