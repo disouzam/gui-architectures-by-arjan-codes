@@ -1,10 +1,22 @@
 from PyQt6.QtCore import QModelIndex
-
 from PyQt6 import QtGui, QtWidgets, uic
 
 from model import create_model
 
-UI_FILE = "view.ui"
+from pathlib import Path
+import os
+
+
+def get_current_folder_path() -> Path:
+    """
+    Utility function to get current folder path
+    """
+    current_file_path = Path(__file__)
+    current_folder_path: Path = current_file_path.parent.absolute()
+    return current_folder_path
+
+
+UI_FILE = os.path.join(get_current_folder_path(), "view.ui")
 
 
 class TodoList(QtWidgets.QMainWindow):
