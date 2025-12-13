@@ -12,9 +12,9 @@ def main() -> None:
     Entry point for MVC application
     """
     model = Model()
-    view = TodoList(model)
-    controller = Presenter(model, view)
-    controller.run()
+    view = TodoList()
+    presenter = Presenter(model, view)
+    presenter.run()
 
 
 if __name__ == "__main__":

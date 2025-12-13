@@ -1,22 +1,23 @@
 import tkinter as tk
-from typing import Any, Callable
-
-from model import Model
+from typing import Any, Callable, Protocol
 
 TITLE = "To Do List"
 DELETE_BTN_TXT = "Delete"
 
 
+class Presenter(Protocol):
+    def handle_add_task(self, event=None) -> None: ...
+
+    def handle_delete_task(self, event=None) -> None: ...
+
+
 class TodoList(tk.Tk):
-    def __init__(self, model: Model) -> None:
+    def __init__(self) -> None:
         super().__init__()
-        self.model = model
         self.title(TITLE)
         self.geometry("500x300")
-        self.create_ui()
-        self.update_task_list()
 
-    def create_ui(self) -> None:
+    def create_ui(self, presenter: Presenter) -> None:
         self.frame = tk.Frame(self, padx=10, pady=10)
         self.frame.pack(fill=tk.BOTH, expand=True)
 
@@ -27,18 +28,14 @@ class TodoList(tk.Tk):
         self.task_list.pack(fill=tk.X)
 
         self.my_entry = tk.Entry(self.frame)
+        self.my_entry.bind("<Return>", presenter.handle_add_task)
         self.my_entry.pack(fill=tk.X)
 
         self.del_task_button = tk.Button(
             self.frame, text=DELETE_BTN_TXT, width=6, pady=5, state=tk.DISABLED
         )
+        self.del_task_button.bind("<Button-1>", presenter.handle_delete_task)
         self.del_task_button.pack(side=tk.TOP, anchor=tk.NE)
-
-    def bind_delete_task(self, callback: Callable[[tk.Event], None]) -> None:
-        self.del_task_button.bind("<Button-1>", callback)
-
-    def bind_add_task(self, callback: Callable[[tk.Event], None]) -> None:
-        self.my_entry.bind("<Return>", callback)
 
     def get_entry_text(self) -> str:
         return self.my_entry.get()
@@ -50,16 +47,16 @@ class TodoList(tk.Tk):
     def selected_task(self):
         return self.task_list.get(self.task_list.curselection())
 
-    def on_select_task(self, event=None):
+    def on_select_task(self, event=None) -> None:
         self.del_task_button.config(state=tk.NORMAL)
 
-    def on_focus_out(self, event=None):
+    def on_focus_out(self, event=None) -> None:
         self.task_list.select_clear(0, tk.END)
         self.del_task_button.config(state=tk.DISABLED)
 
-    def update_task_list(self):
+    def update_task_list(self, tasks: list[str]) -> None:
         self.task_list.delete(0, tk.END)
-        for item in self.model.get_tasks():
+        for item in tasks:
             self.task_list.insert(tk.END, item)
         self.del_task_button.config(state=tk.DISABLED)
         self.task_list.yview(tk.END)
